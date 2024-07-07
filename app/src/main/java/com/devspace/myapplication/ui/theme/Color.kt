@@ -9,3 +9,4 @@ val RedAccent80 = Color(0xFFFF8A80) // Acento vermelho claro para o tema dark
 val Red40 = Color(0xFFD32F2F) // Vermelho para o tema light
 val RedGrey40 = Color(0xFFBDBDBD) // Cinza avermelhado para o tema light
 val RedAccent40 = Color(0xFFFF5252) // Acento vermelho para o tema light
+val Abc = Color(0xFFFFF0E7)
