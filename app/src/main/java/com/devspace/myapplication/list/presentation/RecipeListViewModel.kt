@@ -1,14 +1,15 @@
 package com.devspace.myapplication.list.presentation
 
 import android.util.Log
-import androidx.compose.runtime.saveable.listSaver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.devspace.myapplication.common.data.RetrofitClient
 import com.devspace.myapplication.common.model.RecipeDto
+import com.devspace.myapplication.common.model.SearchRecipeResponse
 import com.devspace.myapplication.list.data.RandomListService
+import com.devspace.myapplication.search.data.SearchService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -11,11 +11,14 @@ import com.devspace.myapplication.detail.presentation.ui.RecipeDetailScreen
 import com.devspace.myapplication.list.presentation.RecipeListViewModel
 import com.devspace.myapplication.list.presentation.ui.RecipeListScreen
 import com.devspace.myapplication.presentationscr.PresentationScreen
+import com.devspace.myapplication.search.presentation.SearchRecipeViewModel
+import com.devspace.myapplication.search.presentation.ui.SearchRecipesScreen
 
 @Composable
 fun ERApp(
     recipeListViewModel: RecipeListViewModel,
-    recipeDetailViewModel: RecipeDetailViewModel
+    recipeDetailViewModel: RecipeDetailViewModel,
+    searchRecipeViewModel: SearchRecipeViewModel
 ) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "presentationScreen") {
@@ -33,12 +36,25 @@ fun ERApp(
             arguments = listOf(navArgument("itemId") {
                 type = NavType.StringType
             })
-        ) {backStackEntry ->
+        ) { backStackEntry ->
             val movieId = requireNotNull(backStackEntry.arguments?.getString("itemId"))
             RecipeDetailScreen(
                 movieId,
                 navController,
                 recipeDetailViewModel
+            )
+        }
+        composable(
+            route = "searchRecipesScreen" + "/{query}",
+            arguments = listOf(navArgument("query") {
+                type = NavType.StringType
+            })
+        ) { backStackEntry ->
+            val query = requireNotNull(backStackEntry.arguments?.getString("query"))
+            SearchRecipesScreen(
+                navController,
+                searchRecipeViewModel,
+                query
             )
         }
     }

@@ -10,12 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.devspace.myapplication.detail.presentation.RecipeDetailViewModel
 import com.devspace.myapplication.list.presentation.RecipeListViewModel
+import com.devspace.myapplication.search.presentation.SearchRecipeViewModel
 import com.devspace.myapplication.ui.theme.EasyRecipesTheme
 
 class MainActivity : ComponentActivity() {
 
     private val listViewModel by viewModels<RecipeListViewModel>{ RecipeListViewModel.Factory }
     private val detailViewModel by viewModels<RecipeDetailViewModel>{ RecipeDetailViewModel.Factory }
+    private val searchViewModel by viewModels<SearchRecipeViewModel>{ SearchRecipeViewModel.Factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +29,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     ERApp(
                         listViewModel,
-                        detailViewModel
+                        detailViewModel,
+                        searchViewModel
                     )
                 }
             }
