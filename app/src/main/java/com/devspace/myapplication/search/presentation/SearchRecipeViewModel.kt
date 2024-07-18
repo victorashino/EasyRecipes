@@ -1,12 +1,15 @@
 package com.devspace.myapplication.search.presentation
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
-import com.devspace.myapplication.common.data.RetrofitClient
-import com.devspace.myapplication.common.model.SearchRecipeDto
+import com.devspace.myapplication.common.data.remote.RetrofitClient
+import com.devspace.myapplication.common.data.remote.model.SearchRecipeDto
 import com.devspace.myapplication.search.data.SearchService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,6 +34,13 @@ class SearchRecipeViewModel(
         } else {
             Log.d("SearchRecipeViewModel", "Request Error :: ${response.errorBody()}")
         }
+    }
+
+    fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val capabilities = connectivityManager.getNetworkCapabilities(network)
+        return capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
     companion object {

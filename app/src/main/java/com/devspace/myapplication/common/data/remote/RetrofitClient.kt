@@ -1,4 +1,4 @@
-package com.devspace.myapplication.common.data
+package com.devspace.myapplication.common.data.remote
 
 import com.devspace.myapplication.BuildConfig
 import okhttp3.OkHttpClient

@@ -28,14 +28,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import com.devspace.myapplication.common.model.SearchRecipeDto
+import com.devspace.myapplication.common.data.remote.model.SearchRecipeDto
 import com.devspace.myapplication.search.presentation.SearchRecipeViewModel
-import java.util.Locale
 
 @Composable
 fun SearchRecipesScreen(
@@ -80,7 +78,7 @@ private fun RecipeListContent(
                     }
                     Text(
                         modifier = Modifier.padding(start = 4.dp),
-                        text = query.capitalize()
+                        text = query.replaceFirstChar { it.titlecase() }
                     )
                 }
                 RecipeList(
