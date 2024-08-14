@@ -8,32 +8,7 @@ import com.devspace.myapplication.list.data.RecipeListRepository
 import com.devspace.myapplication.list.data.local.RecipeListLocalDataSource
 import com.devspace.myapplication.list.data.remote.RandomListService
 import com.devspace.myapplication.list.data.remote.RecipeListRemoteDataSource
+import dagger.hilt.android.HiltAndroidApp
 
-class EasyRecipesApplication : Application() {
-
-    private val db by lazy {
-        Room.databaseBuilder(
-            applicationContext,
-            EasyRecipesDataBase::class.java, "database-easy-recipes"
-        ).build()
-    }
-
-    private val listService by lazy {
-        RetrofitClient.retrofitInstance.create(RandomListService::class.java)
-    }
-
-    private val localDataSource: RecipeListLocalDataSource by lazy {
-        RecipeListLocalDataSource(db.getRecipeDao())
-    }
-
-    private val remoteDataSource: RecipeListRemoteDataSource by lazy {
-        RecipeListRemoteDataSource(listService)
-    }
-
-    val repository: RecipeListRepository by lazy {
-        RecipeListRepository(
-            local = localDataSource,
-            remote = remoteDataSource
-        )
-    }
-}
+@HiltAndroidApp
+class EasyRecipesApplication : Application()

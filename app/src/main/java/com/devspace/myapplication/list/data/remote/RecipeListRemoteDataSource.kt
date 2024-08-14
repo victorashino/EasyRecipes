@@ -2,11 +2,12 @@ package com.devspace.myapplication.list.data.remote
 
 import android.accounts.NetworkErrorException
 import com.devspace.myapplication.common.data.model.Recipe
+import javax.inject.Inject
 
-class RecipeListRemoteDataSource(
+class RecipeListRemoteDataSource @Inject constructor(
     private val listService: RandomListService
-) {
-    suspend fun getRecipes(): Result<List<Recipe>?> {
+) : RemoteDataSource {
+    override suspend fun getRecipes(): Result<List<Recipe>?> {
         return try {
             val response = listService.getRandom()
             if (response.isSuccessful) {

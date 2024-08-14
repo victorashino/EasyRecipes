@@ -15,11 +15,7 @@ import com.devspace.myapplication.search.presentation.SearchRecipeViewModel
 import com.devspace.myapplication.search.presentation.ui.SearchRecipesScreen
 
 @Composable
-fun ERApp(
-    recipeListViewModel: RecipeListViewModel,
-    recipeDetailViewModel: RecipeDetailViewModel,
-    searchRecipeViewModel: SearchRecipeViewModel
-) {
+fun ERApp() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "presentationScreen") {
         composable(route = "presentationScreen") {
@@ -27,8 +23,7 @@ fun ERApp(
         }
         composable(route = "recipeListScreen") {
             RecipeListScreen(
-                navController,
-                recipeListViewModel
+                navController
                 )
         }
         composable(
@@ -40,8 +35,7 @@ fun ERApp(
             val movieId = requireNotNull(backStackEntry.arguments?.getString("itemId"))
             RecipeDetailScreen(
                 movieId,
-                navController,
-                recipeDetailViewModel
+                navController
             )
         }
         composable(
@@ -53,7 +47,6 @@ fun ERApp(
             val query = requireNotNull(backStackEntry.arguments?.getString("query"))
             SearchRecipesScreen(
                 navController,
-                searchRecipeViewModel,
                 query
             )
         }

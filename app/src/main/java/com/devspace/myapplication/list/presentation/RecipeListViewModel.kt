@@ -12,18 +12,25 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.devspace.myapplication.EasyRecipesApplication
 import com.devspace.myapplication.common.data.remote.RetrofitClient
 import com.devspace.myapplication.common.data.remote.model.RecipeDto
+import com.devspace.myapplication.di.DispatcherIO
+import com.devspace.myapplication.list.data.ListRepository
 import com.devspace.myapplication.list.data.RecipeListRepository
 import com.devspace.myapplication.list.data.remote.RandomListService
 import com.devspace.myapplication.list.presentation.ui.RecipeListUiState
 import com.devspace.myapplication.list.presentation.ui.RecipeUiData
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class RecipeListViewModel(
-    private val repository: RecipeListRepository
+@HiltViewModel
+class RecipeListViewModel @Inject constructor(
+    private val repository: ListRepository,
+    @DispatcherIO private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _uiRandomRecipes = MutableStateFlow(RecipeListUiState())
@@ -40,7 +47,7 @@ class RecipeListViewModel(
         return capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
-    private fun fetchRandomRecipes() = viewModelScope.launch(Dispatchers.IO) {
+    private fun fetchRandomRecipes() = viewModelScope.launch(dispatcher) {
         _uiRandomRecipes.value = RecipeListUiState(isLoading = true)
         val result = repository.getRecipes()
         if (result.isSuccess) {
@@ -69,14 +76,15 @@ class RecipeListViewModel(
         }
     }
 
-    companion object {
+/*    companion object {
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
                 val application = checkNotNull(extras[APPLICATION_KEY])
                 return RecipeListViewModel(
-                    repository = (application as EasyRecipesApplication).repository
+                    repository = (application as EasyRecipesApplication).repository,
+                    dispatcher = Dispatchers.IO
                 ) as T
             }
         }
-    }
+    }*/
 }

@@ -11,12 +11,15 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.devspace.myapplication.common.data.remote.RetrofitClient
 import com.devspace.myapplication.common.data.remote.model.SearchRecipeDto
 import com.devspace.myapplication.search.data.SearchService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchRecipeViewModel(
+@HiltViewModel
+class SearchRecipeViewModel @Inject constructor(
     private val searchService: SearchService
 ) : ViewModel() {
 
@@ -43,7 +46,7 @@ class SearchRecipeViewModel(
         return capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
-    companion object {
+/*    companion object {
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
                 val searchService = RetrofitClient.retrofitInstance.create(SearchService::class.java)
@@ -52,5 +55,5 @@ class SearchRecipeViewModel(
                 ) as T
             }
         }
-    }
+    }*/
 }

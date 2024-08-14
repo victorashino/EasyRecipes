@@ -8,40 +8,43 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.devspace.myapplication.common.data.remote.RetrofitClient
 import com.devspace.myapplication.common.data.remote.model.RecipeDto
 import com.devspace.myapplication.detail.data.DetailService
+import com.devspace.myapplication.di.DispatcherIO
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RecipeDetailViewModel(
-    private val detailService: DetailService
+@HiltViewModel
+class RecipeDetailViewModel @Inject constructor(
+    private val detailService: DetailService,
+    @DispatcherIO private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
     private val _uiRecipeDetail = MutableStateFlow<RecipeDto?>(null)
     val uiRecipeDetail: StateFlow<RecipeDto?> = _uiRecipeDetail
 
-    fun fetchDetail(id: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun fetchDetail(id: String) = viewModelScope.launch(dispatcher) {
         val response = detailService.getRecipeDetail(id)
         if (response.isSuccessful) {
-            val recipes = response.body()
-            if (recipes != null) {
-                _uiRecipeDetail.value = recipes
-                Log.d("RecipeDetailViewModel", "${response.body()}")
-            }
+            _uiRecipeDetail.value = response.body()
         } else {
             Log.d("RecipeDetailViewModel", "Request Error :: ${response.errorBody()}")
         }
     }
 
-    companion object {
+/*    companion object {
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-                val detailService = RetrofitClient.retrofitInstance.create(DetailService::class.java)
+                val detailService =
+                    RetrofitClient.retrofitInstance.create(DetailService::class.java)
                 return RecipeDetailViewModel(
                     detailService
                 ) as T
             }
         }
-    }
+    }*/
 
 }

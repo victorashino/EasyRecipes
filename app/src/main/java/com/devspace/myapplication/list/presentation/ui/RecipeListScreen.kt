@@ -35,6 +35,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.devspace.myapplication.ERHtmlToText
@@ -43,7 +44,7 @@ import com.devspace.myapplication.list.presentation.RecipeListViewModel
 @Composable
 fun RecipeListScreen(
     navHostController: NavHostController,
-    viewModel: RecipeListViewModel
+    viewModel: RecipeListViewModel = hiltViewModel()
 ) {
     RecipeListContent(
         navHostController,

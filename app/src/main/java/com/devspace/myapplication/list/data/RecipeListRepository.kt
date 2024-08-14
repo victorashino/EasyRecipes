@@ -1,14 +1,17 @@
 package com.devspace.myapplication.list.data
 
 import com.devspace.myapplication.common.data.model.Recipe
+import com.devspace.myapplication.list.data.local.LocalDataSource
 import com.devspace.myapplication.list.data.local.RecipeListLocalDataSource
 import com.devspace.myapplication.list.data.remote.RecipeListRemoteDataSource
+import com.devspace.myapplication.list.data.remote.RemoteDataSource
+import javax.inject.Inject
 
-class RecipeListRepository(
-    private val local: RecipeListLocalDataSource,
-    private val remote: RecipeListRemoteDataSource
-) {
-    suspend fun getRecipes(): Result<List<Recipe>?> {
+class RecipeListRepository @Inject constructor(
+    private val local: LocalDataSource,
+    private val remote: RemoteDataSource
+) : ListRepository {
+    override suspend fun getRecipes(): Result<List<Recipe>?> {
         return try {
             val result = remote.getRecipes()
             if (result.isSuccess) {

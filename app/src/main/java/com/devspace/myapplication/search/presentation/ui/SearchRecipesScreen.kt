@@ -30,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.devspace.myapplication.common.data.remote.model.SearchRecipeDto
@@ -38,8 +39,8 @@ import com.devspace.myapplication.search.presentation.SearchRecipeViewModel
 @Composable
 fun SearchRecipesScreen(
     navHostController: NavHostController,
-    viewModel: SearchRecipeViewModel,
-    query: String
+    query: String,
+    viewModel: SearchRecipeViewModel = hiltViewModel()
 ) {
     RecipeListContent(
         navHostController,

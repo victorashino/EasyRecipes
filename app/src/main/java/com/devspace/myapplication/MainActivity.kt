@@ -12,12 +12,10 @@ import com.devspace.myapplication.detail.presentation.RecipeDetailViewModel
 import com.devspace.myapplication.list.presentation.RecipeListViewModel
 import com.devspace.myapplication.search.presentation.SearchRecipeViewModel
 import com.devspace.myapplication.ui.theme.EasyRecipesTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    private val listViewModel by viewModels<RecipeListViewModel>{ RecipeListViewModel.Factory }
-    private val detailViewModel by viewModels<RecipeDetailViewModel>{ RecipeDetailViewModel.Factory }
-    private val searchViewModel by viewModels<SearchRecipeViewModel>{ SearchRecipeViewModel.Factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,11 +25,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Color(0xFFFFF6F1)
                 ) {
-                    ERApp(
-                        listViewModel,
-                        detailViewModel,
-                        searchViewModel
-                    )
+                    ERApp()
                 }
             }
         }

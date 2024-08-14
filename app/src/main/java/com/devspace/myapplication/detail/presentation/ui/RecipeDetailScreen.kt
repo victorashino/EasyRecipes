@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.devspace.myapplication.ERHtmlToText
@@ -29,7 +30,7 @@ import com.devspace.myapplication.detail.presentation.RecipeDetailViewModel
 fun RecipeDetailScreen(
     recipeId: String,
     navHostController: NavHostController,
-    viewModel: RecipeDetailViewModel
+    viewModel: RecipeDetailViewModel = hiltViewModel()
 ) {
     val recipeDetail by viewModel.uiRecipeDetail.collectAsState()
     viewModel.fetchDetail(recipeId)
