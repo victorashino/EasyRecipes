@@ -2,6 +2,7 @@ package com.devspace.myapplication.list.presentation.ui
 
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -66,7 +67,7 @@ private fun RecipeListContent(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        SearchBar(
+        CustomSearchBar(
             query,
             onSearch = {
                 if (isConnected) {
@@ -92,7 +93,7 @@ private fun RecipeListContent(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun SearchBar(
+private fun CustomSearchBar(
     query: String,
     onSearch: (String) -> Unit,
     onQueryChange: (String) -> Unit
@@ -100,7 +101,12 @@ private fun SearchBar(
     SearchBar(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(21.dp)
+            .border(
+                width = 2.dp,
+                color = Color(0xFFA10C0C),
+                shape = RoundedCornerShape(8.dp)
+            ),
         query = query,
         onQueryChange = { onQueryChange(it) },
         onSearch = { onSearch(query) },
@@ -127,7 +133,7 @@ private fun SearchBar(
                 tint = Color.Gray
             )
         },
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(8.dp)
     ) {
 
     }

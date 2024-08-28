@@ -20,11 +20,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.devspace.myapplication.R
+import com.devspace.myapplication.ui.theme.raleway
+import com.devspace.myapplication.ui.theme.urbanist
 
 @Composable
 fun PresentationScreen(navController: NavHostController) {
@@ -46,7 +49,6 @@ private fun PresentationContent(navController: NavHostController) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Color(0x99000000)),
         ) {
             Column(
                 modifier = Modifier
@@ -56,29 +58,23 @@ private fun PresentationContent(navController: NavHostController) {
                 verticalArrangement = Arrangement.Bottom,
             ) {
                 Text(
-                    text = "Let's",
+                    text = "EasyRecipes",
                     style = TextStyle(
-                        fontSize = 32.sp,
+                        fontFamily = raleway,
+                        fontSize = 36.sp,
                         color = Color.White,
                         fontWeight = FontWeight.Bold
-                    ),
-                )
-                Text(
-                    text = "Cooking",
-                    modifier = Modifier.padding(bottom = 16.dp),
-                    style = TextStyle(
-                        fontSize = 32.sp,
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold
-                    ),
+                    )
                 )
                 Text(
                     text = "Find best recipes for cooking",
                     style = TextStyle(
+                        fontFamily = urbanist,
                         fontSize = 16.sp,
                         color = Color.White,
-                        fontWeight = FontWeight.SemiBold
+                        fontWeight = FontWeight.Medium
                     ),
+                    modifier = Modifier.padding(bottom = 64.dp)
                 )
                 ButtonStart {
                     navController.navigate("recipeListScreen")
@@ -93,19 +89,20 @@ private fun ButtonStart(onClick: () -> Unit) {
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color.Red
+            containerColor = Color(0xFFFFD4D4)
         ),
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier
-            .height(74.dp)
-            .width(132.dp)
-            .padding(top = 32.dp)
+            .padding(top = 32.dp, bottom = 47.dp)
+            .height(51.dp)
+            .width(253.dp)
     ) {
         Text(
             text = "Start cooking",
             style = TextStyle(
-                fontSize = 14.sp,
-                color = Color.White,
+                fontSize = 16.sp,
+                fontFamily = urbanist,
+                color = Color(0xFFA10C0C),
                 fontWeight = FontWeight.SemiBold
             ),
         )
