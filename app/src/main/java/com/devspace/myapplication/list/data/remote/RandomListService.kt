@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 interface RandomListService {
 
-    @GET("recipes/random?number=10")
+    @GET("recipes/random?number=1")
     suspend fun getRandom(): Response<RecipeResponse>
 
 }
